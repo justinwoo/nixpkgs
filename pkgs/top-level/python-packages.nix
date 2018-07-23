@@ -10966,25 +10966,7 @@ in {
     };
   };
 
-  PyStemmer = buildPythonPackage (rec {
-    name = "PyStemmer-1.3.0";
-
-    src = pkgs.fetchurl {
-      url = "mirror://pypi/P/PyStemmer/${name}.tar.gz";
-      sha256 = "d1ac14eb64978c1697fcfba76e3ac7ebe24357c9428e775390f634648947cb91";
-    };
-
-    checkPhase = ''
-      ${python.interpreter} runtests.py
-    '';
-
-    meta = {
-      description = "Snowball stemming algorithms, for information retrieval";
-      homepage = http://snowball.tartarus.org/;
-      license = licenses.mit;
-      platforms = platforms.unix;
-    };
-  });
+  PyStemmer = callPackage ../development/python-modules/pystemmer {};
 
   Pyro = callPackage ../development/python-modules/pyro { };
 
@@ -12591,26 +12573,7 @@ in {
     };
   };
 
-  snowballstemmer = buildPythonPackage rec {
-    name = "snowballstemmer-1.2.1";
-
-    src = pkgs.fetchurl {
-      url = "mirror://pypi/s/snowballstemmer/${name}.tar.gz";
-      sha256 = "919f26a68b2c17a7634da993d91339e288964f93c274f1343e3bbbe2096e1128";
-    };
-
-    # No tests included
-    doCheck = false;
-
-    propagatedBuildInputs = with self; [ PyStemmer ];
-
-    meta = {
-      description = "16 stemmer algorithms (15 + Poerter English stemmer) generated from Snowball algorithms";
-      homepage = http://sigal.saimon.org/en/latest/index.html;
-      license = licenses.bsd3;
-      platforms = platforms.unix;
-    };
-  };
+  snowballstemmer = callPackage ../development/python-modules/snowballstemmer { };
 
   spake2 = callPackage ../development/python-modules/spake2 { };
 
